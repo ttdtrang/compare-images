@@ -13,5 +13,10 @@ import json
 imgTest = nibabel.load(args.test).get_data()
 imgTruth = nibabel.load(args.truth).get_data()
 jaccard = np.sum(imgTruth == imgTest)*1.0 / np.prod(imgTest.shape)
-output = { "Jaccard": ("%s" % jaccard) }
+sorensen = np.sum(imgTruth == imgTest)*2.0 / (np.prod(imgTest.shape) + np.prod(imgTruth.shape))
+
+output = { 
+"Jaccard": ("%s" % jaccard),
+"Sorensen": ("%s" % sorensen) 
+}
 print(json.dumps(output))
